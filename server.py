@@ -1,5 +1,6 @@
 import os
 import flask
+from flask import request, render_template, send_file
 
 # Heroku config vars
 debug = (os.environ.get('DEBUG', 'True') == 'True')
@@ -11,10 +12,10 @@ spotipy_redirect_uri = os.environ.get('SPOTIPY_REDIRECT_URI')
 app = flask.Flask(__name__)
 
 
-@app.route('/hello/<name>')
-def index(name):
-    return f'Hello {name}!'
-
+@app.route('/')
+@app.route("/callback")
+def index():
+    return send_file("index.html")
 
 def main():
     app.run(host='0.0.0.0', debug=debug, port=port)
