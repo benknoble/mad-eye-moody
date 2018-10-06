@@ -16,7 +16,7 @@ def index(name):
 
 
 def main():
-    app.run(debug=debug, port=port)
+    app.run(host='0.0.0.0', debug=debug, port=port)
 
 
 main()
