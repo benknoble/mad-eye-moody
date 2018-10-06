@@ -1,6 +1,8 @@
 import os
 import flask
 from flask import request, render_template, send_file
+import authenticate_user
+
 
 # Heroku config vars
 debug = (os.environ.get('DEBUG', 'True') == 'True')
@@ -15,7 +17,11 @@ app = flask.Flask(__name__)
 @app.route('/')
 @app.route("/callback")
 def index():
-    return send_file("index.html")
+    token = request.headers.get('Authorization')
+    if token:
+        return send_file("index.html")
+    else:
+        authenticate_user.authenticate()
 
 def main():
     app.run(host='0.0.0.0', debug=debug, port=port)
