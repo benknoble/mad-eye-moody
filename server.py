@@ -22,6 +22,7 @@ def index():
         return send_file("index.html")
     else:
         authenticate_user.authenticate()
+        return f'Authorized!'
 
 def main():
     app.run(host='0.0.0.0', debug=debug, port=port)
