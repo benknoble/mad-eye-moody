@@ -1,5 +1,5 @@
 import os
-import bottle
+import flask
 
 # Heroku config vars
 debug = (os.environ.get('DEBUG', 'True') == 'True')
@@ -8,12 +8,12 @@ spotipy_client_id = os.environ.get('SPOTIPY_CLIENT_ID')
 spotipy_client_secret = os.environ.get('SPOTIPY_CLIENT_SECRET')
 spotipy_redirect_uri = os.environ.get('SPOTIPY_REDIRECT_URI')
 
-app = bottle.Bottle()
+app = flask.Flask(__name__)
 
 
 @app.route('/hello/<name>')
 def index(name):
-    return bottle.template('<b>Hello {{name}}</b>!', name=name)
+    return f'Hello {name}!'
 
 
 def main():

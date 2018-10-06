@@ -1,1 +1,1 @@
-web: python server.py
+web: FLASK_APP=server.py flask run
