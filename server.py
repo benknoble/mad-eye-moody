@@ -2,10 +2,10 @@ import os
 import bottle
 
 # Heroku config vars
-debug = (os.environ['DEBUG'] == 'True')
-port = os.environ['PORT']
-spotify_client_id = os.environ['SPOTIFY_CLIENT_ID']
-spotify_client_secret = os.environ['SPOTIFY_CLIENT_SECRET']
+debug = (os.environ.get('DEBUG', 'True') == 'True')
+port = os.environ.get('PORT', 8080)
+spotify_client_id = os.environ.get('SPOTIFY_CLIENT_ID')
+spotify_client_secret = os.environ.get('SPOTIFY_CLIENT_SECRET')
 
 app = bottle.Bottle()
 
@@ -19,5 +19,4 @@ def main():
     app.run(debug=debug, port=port)
 
 
-if __name__ == 'main':
-    main()
+main()
