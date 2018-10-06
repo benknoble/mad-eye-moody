@@ -4,15 +4,15 @@
 
 ### Setup venv:
 
-You may need to add `.env` to your gitignore (edit `.git/info/exclude`).
+You may need to add `.venv` to your gitignore (edit `.git/info/exclude`).
 
 ```
-$ python3 -m venv .env
-$ source .env/bin/activate
+$ python3 -m venv .venv
+$ source .venv/bin/activate
 ```
 
 ### Install dev requirements
 
 ```
-(.env) $ pip install -r requirements.txt
+(.venv) $ pip install -r requirements.txt
 ```
