@@ -20,4 +20,5 @@ def main():
     app.run(host='0.0.0.0', debug=debug, port=port)
 
 
-main()
+if __name__ == '__main__':
+    main()
