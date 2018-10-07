@@ -1,8 +1,6 @@
 import os
 import flask
 from flask import request, render_template, send_file, redirect
-import authenticate_user
-
 
 # Heroku config vars
 debug = (os.environ.get('DEBUG', 'True') == 'True')
