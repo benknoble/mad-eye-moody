@@ -86,8 +86,7 @@ def filter_tracks(mood, track_data):
     if mood in mood_filters.keys():
         filters = mood_filters[mood]
         for track in track_data:
-            if all([low <= 10*track.get(attr) <= high
-                    for (attr, (low, high)) in filters.items()]):
+            if track and all([low <= 10*track.get(attr) <= high for (attr, (low, high)) in filters.items()]):
                 result.append(track['id'])
         return result
     else:
