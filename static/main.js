@@ -7,7 +7,8 @@ window.onload = function() {
             playlistName: "",
             playlistReturned: false,
             playlistId: undefined,
-            loading: false
+            loading: false,
+            token: undefined
         },
         computed: {
             code: function() {
@@ -30,6 +31,7 @@ window.onload = function() {
                         method: 'POST',
                         body: JSON.stringify({
                             code: this.code,
+                            token: this.token,
                             mood: this.mood,
                             name: this.playlistName
                         }),
@@ -39,8 +41,9 @@ window.onload = function() {
                     }).then(res => res.json())
                         .then(response => {
                             that.playlistReturned = true;
-                            that.playlistId = response;
+                            that.playlistId = response.playlist_id;
                             that.loading = false;
+                            that.token = response.token;
                         }).catch(err => {
                             console.error(err);
                             that.error = "There was an error processing your request. Please try again.";

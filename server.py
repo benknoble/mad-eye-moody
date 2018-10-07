@@ -32,20 +32,17 @@ def generate_playlist():
     code = body.get('code')
     mood = body.get('mood')
     name = body.get('name')
+    token = body.get('token')
 
-    if code:
-        try:
-            token = spotify_service.generate_token(code,scope)
-        except:
-            return redirect("/")
-        tracks = spotify_service.get_playlist_tracks(token)
-        track_data = spotify_service.get_track_data(tracks,token)
-        filtered_tracks_ids = spotify_service.filter_tracks(mood, track_data)
-        playlist_id = spotify_service.create_playlist(name,filtered_tracks_ids,token)
+    if not token:
+        token = spotify_service.generate_token(code,scope)
 
-        return flask.jsonify(playlist_id)
-    else:
-        return redirect("https://accounts.spotify.com/en/authorize?client_id=%s&response_type=code&redirect_uri=%s" % (spotipy_client_id, parse.quote_plus(spotipy_redirect_uri)))
+    tracks = spotify_service.get_playlist_tracks(token)
+    track_data = spotify_service.get_track_data(tracks,token)
+    filtered_tracks_ids = spotify_service.filter_tracks(mood, track_data)
+    playlist_id = spotify_service.create_playlist(name,filtered_tracks_ids,token)
+
+    return flask.jsonify(playlist_id=playlist_id, token=token)
 
 def main():
     app.run(host='0.0.0.0', debug=debug, port=port)
