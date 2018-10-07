@@ -1,6 +1,6 @@
 import os
 import flask
-from flask import request, render_template, send_file
+from flask import request, render_template, send_file, redirect
 import authenticate_user
 
 
@@ -21,8 +21,7 @@ def index():
     if token:
         return send_file("index.html")
     else:
-        authenticate_user.authenticate()
-        return f'Authorized!'
+        return redirect("https://accounts.spotify.com/en/authorize?client_id=%s&response_type=code&redirect_uri=%s" % (spotipy_client_id, spotipy_redirect_uri))
 
 def main():
     app.run(host='0.0.0.0', debug=debug, port=port)
