@@ -17,14 +17,18 @@ scope = 'user-library-read,playlist-read-private,playlist-modify-public'
 app = flask.Flask(__name__)
 
 
-@app.route('/')
+@app.route('/create')
 @app.route("/callback")
-def index():
+def create():
     token = request.args.get('code')
     if token:
-        return send_file("index.html")
+        return send_file("create.html")
     else:
         return redirect("https://accounts.spotify.com/en/authorize?client_id=%s&response_type=code&scope=%s&redirect_uri=%s" % (spotipy_client_id, parse.quote_plus(scope), parse.quote_plus(spotipy_redirect_uri)))
+
+@app.route('/')
+def index():
+    return send_file("index.html")
 
 @app.route('/playlists', methods = ['POST'])
 def generate_playlist():
