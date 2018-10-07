@@ -81,15 +81,15 @@ def create_playlist(name, track_ids, token):
 
     return playlist_id
 
-def filter(mood, track_data):
+def filter_tracks(mood, track_data):
     result = []
     if mood in mood_filters.keys():
         filters = mood_filters[mood]
         for track in track_data:
-            if all([low <= track.get(attr) <= high
+            if all([low <= 10*track.get(attr) <= high
                     for (attr, (low, high)) in filters.items()]):
                 result.append(track['id'])
         return result
     else:
-        print('Bad mood')
+        print(f'Bad mood: {mood}')
         return []
