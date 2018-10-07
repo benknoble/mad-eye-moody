@@ -36,6 +36,8 @@ def generate_playlist():
     code = body.get('code')
     mood = body.get('mood')
     name = body.get('name')
+    if not name:
+        name = f'madeyemoody {mood} playlist'
     token = body.get('token')
 
     if not token:
