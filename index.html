@@ -20,7 +20,14 @@
     </div>
     <div class="ui text container">
         <div id="app" class="segment">
+            <div class="ui active dimmer" v-if="loading">
+                <div class="ui text loader">Loading</div>
+            </div>
             <div class="ui form">
+                <div class="field">
+                    <label>Playlist Name</label>
+                    <input type="text" name="name" placeholder="Playlist Name" v-model="playlistName">
+                </div>
                 <div class="field">
                     <label>Mood:</label>
                     <select v-model="mood" placeholder="Mood" @change="error=''">
@@ -47,13 +54,11 @@
                         <iframe :src="playlistURL" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                     </div>
                     <div :class="playlistReturned ? 'eight wide column' : 'sixteen wide column'">
-                        <div>
-                            <h1 class="ui header">About</h1>
-                            <p>Mad-Eye Moodify is a platfrom designed to make designing mood-centric playlists based around the music you ACTUALLY LIKE, even easier.
-                                Mad-Eye Moodify pull songs from the playlists that you actually listen to, classifies them based on mood, and returns a playlist
-                                perfectly tailored to your current mood. Angry, sad, happy, or peaceful, we can help.
-                            </p>
-                        </div>
+                        <h1 class="ui header">About</h1>
+                        <p>Mad-Eye Moodify is a platform designed to make designing mood-centric playlists based around the music you ACTUALLY LIKE, even easier.
+                            Mad-Eye Moodify pull songs from the playlists that you actually listen to, classifies them based on mood, and returns a playlist
+                            perfectly tailored to your current mood. Angry, sad, happy, or peaceful, we can help.
+                        </p>
                     </div>
                 </div>
             </div>
