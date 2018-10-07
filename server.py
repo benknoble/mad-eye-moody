@@ -36,7 +36,8 @@ def generate_playlist():
         token = spotify_service.generate_token(code,scope)
         tracks = spotify_service.get_playlist_tracks(token)
         track_data = spotify_service.get_track_data(tracks,token)
-        playlist_id = spotify_service.create_playlist(name,tracks,token)
+        filtered_tracks_ids = spotify_service.filter(mood, track_data)
+        playlist_id = spotify_service.create_playlist(name,filtered_tracks_ids,token)
 
         return flask.jsonify(playlist_id)
     else:
