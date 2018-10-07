@@ -1,6 +1,7 @@
 import os
 import flask
-from flask import request, render_template, send_file
+from flask import request, render_template, send_file, redirect
+from urllib import parse
 
 # Heroku config vars
 debug = (os.environ.get('DEBUG', 'True') == 'True')
@@ -15,7 +16,11 @@ app = flask.Flask(__name__)
 @app.route('/')
 @app.route("/callback")
 def index():
-    return send_file("index.html")
+    token = request.args.get('code')
+    if token:
+        return send_file("index.html")
+    else:
+        return redirect("https://accounts.spotify.com/en/authorize?client_id=%s&response_type=code&redirect_uri=%s" % (spotipy_client_id, parse.quote_plus(spotipy_redirect_uri)))
 
 def main():
     app.run(host='0.0.0.0', debug=debug, port=port)
