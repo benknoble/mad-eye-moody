@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Mad-Eye Moodify</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="static/main.css" />
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css" integrity="sha256-ncjDAd2/rm/vaNTqp7Kk96MfSeHACtbiDU9NWKqNuCI=" crossorigin="anonymous" />
+    <script src="static/main.js"></script>
+</head>
+<body>
+    <div id="title-bar">
+        Mad-Eye M<i class="eye icon small"></i><i class="eye icon small"></i>dify
+    </div>
+    <div class="ui text container">
+        <div id="app" class="segment">
+            <div class="ui active dimmer" v-if="loading">
+                <div class="ui text loader">Loading</div>
+            </div>
+            <div class="ui form">
+                <div class="field">
+                    <label>Playlist Name</label>
+                    <input type="text" name="name" placeholder="Playlist Name" v-model="playlistName">
+                </div>
+                <div class="field">
+                    <label>Mood:</label>
+                    <select v-model="mood" placeholder="Mood" @change="error=''">
+                        <option value="">Select Mood</option>
+                        <option value="happy">Happy</option>
+                        <option value="sad">Sad</option>
+                        <option value="peaceful">Peaceful</option>
+                        <option value="angry">Angry</option>
+                    </select>
+                </div>
+                <div v-if="error" class="ui negative message">
+                    <div class="header">
+                        Unable to Complete Request
+                    </div>
+                    <p> {{ error }}</p>
+                </div>
+                <div id="make_play" class="ui full button primary" @click="make_playlist">
+                    Get Playlist
+                </div>
+            </div>
+            <div class="ui centered padded grid">
+                <div class="row">
+                    <div class="sixteen wide column" v-if="playlistReturned">
+                        <iframe :src="playlistURL" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js" integrity="sha256-0gIvTkdsp0OOeV8tx3UTdi3ehppGwZbzQMvZJYhbzsE=" crossorigin="anonymous"></script>
+</body>
+</html>
