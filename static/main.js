@@ -4,8 +4,10 @@ window.onload = function() {
         data: {
             mood: "",
             error: "",
+            playlistName: "",
             playlistReturned: false,
-            playlistId: undefined
+            playlistId: undefined,
+            loading: false
         },
         computed: {
             code: function() {
@@ -20,16 +22,16 @@ window.onload = function() {
                 if (this.mood.length == 0) {
                     this.error = "Please select a mood";
                 } else {
-                    this.playlistReturned = true;
-                    this.playlistId = "4c3vIFr42yX9AQ1cvIM6uS";
-                    /*
+                    this.loading = true;
                     this.error = ""
                     let that = this;
-                    var url = 'http://localhost:';
+                    var url = 'http://localhost:8080/playlists';
                     fetch(url, {
-                        method: 'POST', // or 'PUT'
+                        method: 'POST',
                         body: JSON.stringify({
-                            token: this.code
+                            code: this.code,
+                            mood: this.mood,
+                            name: this.playlistName
                         }),
                         headers:{
                             'Content-Type': 'application/json'
@@ -37,11 +39,13 @@ window.onload = function() {
                     }).then(res => res.json())
                         .then(response => {
                             that.playlistReturned = true;
-                            that.playlistId = response.playlistId;
+                            that.playlistId = response;
+                            that.loading = false;
                         }).catch(err => {
-                            that.error = "unable to create playlist";
+                            console.error(err);
+                            that.error = "There was an error processing your request. Please try again.";
+                            that.loading = false;
                         });
-                        */
                 } 
             }
         }
