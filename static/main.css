@@ -14,3 +14,19 @@
 .option {
     border: 1px solid grey;
 }
+
+.no-link {
+  color: white;
+}
+
+.no-link:hover {
+  color: white;
+}
+
+#create {
+  color: #8bbeb2;
+}
+
+#make_play {
+  color: #565264;
+}
