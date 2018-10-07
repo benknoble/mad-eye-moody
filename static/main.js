@@ -25,7 +25,7 @@ window.onload = function() {
                     this.loading = true;
                     this.error = ""
                     let that = this;
-                    var url = 'http://localhost:8080/playlists';
+                    var url = '/playlists';
                     fetch(url, {
                         method: 'POST',
                         body: JSON.stringify({
