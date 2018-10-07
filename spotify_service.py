@@ -3,6 +3,25 @@ import os
 from spotipy import oauth2
 import json
 
+mood_filters = {
+        'happy': {
+            'valence': (5, 10),
+            'energy': (5, 10)
+            },
+        'sad': {
+            'valence': (0, 5),
+            'energy': (0, 5)
+            },
+        'peaceful': {
+            'valence': (5, 10),
+            'energy': (0, 5)
+            },
+        'angry': {
+            'valence': (0, 5),
+            'energy': (5, 10)
+            },
+        }
+
 def generate_token(code,scope):
     client_id = os.getenv('SPOTIPY_CLIENT_ID')
     client_secret = os.getenv('SPOTIPY_CLIENT_SECRET')
@@ -61,3 +80,15 @@ def create_playlist(name, track_ids, token):
         track_ids = track_ids[100:]
 
     return playlist_id
+
+def filter_tracks(mood, track_data):
+    result = []
+    if mood in mood_filters.keys():
+        filters = mood_filters[mood]
+        for track in track_data:
+            if track and all([low <= 10*track.get(attr) <= high for (attr, (low, high)) in filters.items()]):
+                result.append(track['id'])
+        return result
+    else:
+        print(f'Bad mood: {mood}')
+        return []

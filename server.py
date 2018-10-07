@@ -4,6 +4,7 @@ from flask import request, render_template, send_file, redirect
 from urllib import parse
 import spotify_service
 import json
+from spotipy import oauth2
 
 # Heroku config vars
 debug = (os.environ.get('DEBUG', 'True') == 'True')
@@ -33,10 +34,14 @@ def generate_playlist():
     name = body.get('name')
 
     if code:
-        token = spotify_service.generate_token(code,scope)
+        try:
+            token = spotify_service.generate_token(code,scope)
+        except:
+            return redirect("/")
         tracks = spotify_service.get_playlist_tracks(token)
         track_data = spotify_service.get_track_data(tracks,token)
-        playlist_id = spotify_service.create_playlist(name,tracks,token)
+        filtered_tracks_ids = spotify_service.filter_tracks(mood, track_data)
+        playlist_id = spotify_service.create_playlist(name,filtered_tracks_ids,token)
 
         return flask.jsonify(playlist_id)
     else:
