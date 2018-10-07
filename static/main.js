@@ -25,9 +25,9 @@ window.onload = function() {
                     this.loading = true;
                     this.error = ""
                     let that = this;
-                    var url = 'http://localhost:4747/playlist';
+                    var url = 'http://localhost:8080/playlists';
                     fetch(url, {
-                        method: 'POST', // or 'PUT'
+                        method: 'POST',
                         body: JSON.stringify({
                             code: this.code,
                             mood: this.mood,
@@ -39,9 +39,10 @@ window.onload = function() {
                     }).then(res => res.json())
                         .then(response => {
                             that.playlistReturned = true;
-                            that.playlistId = response.playlistId;
+                            that.playlistId = response;
                             that.loading = false;
                         }).catch(err => {
+                            console.error(err);
                             that.error = "There was an error processing your request. Please try again.";
                             that.loading = false;
                         });
