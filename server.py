@@ -5,6 +5,7 @@ from urllib import parse
 import spotify_service
 import json
 from spotipy import oauth2
+import logging
 
 # Heroku config vars
 debug = (os.environ.get('DEBUG', 'True') == 'True')
